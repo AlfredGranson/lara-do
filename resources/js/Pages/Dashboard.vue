@@ -20,17 +20,17 @@
                         </form>
                         <table>
                             <tr>
-                                <th>Completed</th>
                                 <th>Todo</th>
+                                <th colspan="2"></th>
                             </tr>
                             <tr v-for="todo in todos" :key="todo.id">
                                 <td>
-                                    <Checkbox @update:checked="check" :value="todo.id" :checked="!!todo.done"/>
+                                    <label :class="!!todo.done && 'done'">
+                                        <Checkbox @update:checked="check" :value="todo.id" :checked="!!todo.done"/> {{ todo.description }}
+                                    </label>
                                 </td>
                                 <td>
-                                    <span :class="!!todo.done && 'done'">
-                                        {{ todo.description }}
-                                    </span>
+
                                 </td>
                             </tr>
                         </table>
@@ -68,6 +68,9 @@ export default {
         },
         check(checkboxInfo){
             Inertia.post('/check', checkboxInfo);
+        },
+        delete(id){
+            console.log(id);
         }
     },
     data() {
@@ -81,5 +84,19 @@ export default {
 <style>
     .done{
         text-decoration: line-through;
+    }
+    table {
+        width: 100%;
+    }
+    table tr:nth-child(even) {
+        background: #f3f4f6;
+    }
+    table tr td:first-child{
+        width:0.1%;
+        white-space: nowrap;
+        padding-right: 20px;
+    }
+    table tr td:first-child input[type='checkbox']{
+        margin-right: 10px;
     }
 </style>
