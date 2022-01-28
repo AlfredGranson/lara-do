@@ -11,9 +11,15 @@ Clone the repo
 ```bash
   git clone git@github.com:AlfredGranson/lara-do.git
 ```
-Start laravel Sail (this will start docker)
+Install and start laravel Sail (this will start docker)
 ```bash
   cd lara-do
+  docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs
   ./vendor/bin/sail up
 ```
 Enter the container to run npm install/run and migrations
