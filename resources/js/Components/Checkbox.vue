@@ -24,7 +24,7 @@ export default {
             },
 
             set(val) {
-                this.$emit("update:checked", val);
+                this.$emit("update:checked", {"checked":val, "id": this.value});
             },
         },
     },
