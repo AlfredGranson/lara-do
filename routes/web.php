@@ -39,13 +39,21 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
         return redirect('dashboard');
     })->name('create_todo');
 
-    Route::post('/check', function (Request $request) {
-        $todo = Todo::findOrFail($request->input('id'));
+    Route::delete('/todo/{id}', function ($id) {
+        $todo = Todo::findOrFail($id);
+        $todo->delete();
+
+        return redirect('dashboard');
+    })->name('delete_todo');
+
+    Route::post('/todo/{id}', function (Request $request, $id) {
+        $todo = Todo::findOrFail($id);
         $todo->done = $request->input('checked');
         $todo->save();
 
         return redirect('dashboard');
     })->name('check_todo');
+
 });
 
 require __DIR__.'/auth.php';

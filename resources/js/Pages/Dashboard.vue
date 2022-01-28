@@ -12,6 +12,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
+                        <h2>Todo<span v-if="todos.length > 1">s</span></h2>
                         <form @submit.prevent="submit" >
                             <div id="todoInput">
                                 <Input :name="'todo'" v-model="newTodo" />
@@ -19,10 +20,6 @@
                             </div>
                         </form>
                         <table>
-                            <tr>
-                                <th>Todo</th>
-                                <th colspan="2"></th>
-                            </tr>
                             <tr v-for="todo in todos" :key="todo.id">
                                 <td>
                                     <label :class="!!todo.done && 'done'">
@@ -30,7 +27,7 @@
                                     </label>
                                 </td>
                                 <td>
-
+                                    <i @click="remove(todo.id)" class="fas fa-trash-alt"></i>
                                 </td>
                             </tr>
                         </table>
@@ -65,12 +62,13 @@ export default {
     methods: {
         submit() {
             Inertia.post('/todo', {"description": this.newTodo});
+            this.newTodo = null;
         },
         check(checkboxInfo){
-            Inertia.post('/check', checkboxInfo);
+            Inertia.post('/todo/' + checkboxInfo.id, {"checked": checkboxInfo.checked});
         },
-        delete(id){
-            console.log(id);
+        remove(id){
+            Inertia.delete('/todo/' + id);
         }
     },
     data() {
@@ -98,5 +96,8 @@ export default {
     }
     table tr td:first-child input[type='checkbox']{
         margin-right: 10px;
+    }
+    table i{
+        cursor: pointer;
     }
 </style>
