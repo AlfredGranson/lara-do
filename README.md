@@ -14,17 +14,20 @@ Clone the repo
 Install and start laravel Sail (this will start docker)
 ```bash
   cd lara-do
+  
   docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v $(pwd):/var/www/html \
     -w /var/www/html \
     laravelsail/php81-composer:latest \
     composer install --ignore-platform-reqs
+    
   ./vendor/bin/sail up
 ```
-Enter the container to run npm install/run and migrations
+In another tab enter the container to run npm install/run and migrations
 ```bash
   docker exec -it lara-do_laravel.test_1 bash
+  
   npm install
   npm run dev
   php artisan migrate
