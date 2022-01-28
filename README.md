@@ -28,9 +28,10 @@ In another tab enter the container to run npm install/run and migrations
 ```bash
   docker exec -it lara-do_laravel.test_1 bash
   
+  php artisan migrate
+  
   npm install
   npm run dev
-  php artisan migrate
 ``` 
 ## Usage/Examples
 
