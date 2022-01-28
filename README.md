@@ -26,7 +26,7 @@ Install and start laravel Sail (this will start docker)
     
   ./vendor/bin/sail up
 ```
-In another tab setup the rest of the application isnide the docker container
+In another tab setup the rest of the application inside the docker container
 ```bash
   docker exec -it lara-do_laravel.test_1 bash
   
