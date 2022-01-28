@@ -15,6 +15,8 @@ Install and start laravel Sail (this will start docker)
 ```bash
   cd lara-do
   
+  cp .env.example .env
+  
   docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v $(pwd):/var/www/html \
@@ -24,9 +26,11 @@ Install and start laravel Sail (this will start docker)
     
   ./vendor/bin/sail up
 ```
-In another tab enter the container to run npm install/run and migrations
+In another tab setup the rest of the application isnide the docker container
 ```bash
   docker exec -it lara-do_laravel.test_1 bash
+  
+  php artisan key:generate
   
   php artisan migrate
   
